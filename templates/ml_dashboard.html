@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title> {% block title %} ML DASHBOARD {% endblock %} </title>
+    <div class="flex-container" style="display: flex;  justify-content: space-around;";>
+      <div style="width: 40em;">
+          <div style="text-align: center;"> {{name|safe}} </div>
+          <canvas id="lineChart"> </canvas>
+          
+          <script>
+            
+              const data = {
+                labels: {{ labels | safe }},
+                datasets: [{
+                  label: 'Reference Distribution',
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  fill: true,
+                  borderColor: 'rgb(75, 192, 192)',
+                  data: {{ values1 | safe }},
+                  lineTension: 0.15
+                },
+                {
+                  label: 'Current Distribution',
+                  backgroundColor: 'rgb(255, 99, 132, 0.2)',
+                  fill: true,
+                  borderColor: 'rgb(255, 99, 132)',
+                  data: {{ values2 | safe }},
+                  lineTension: 0.15
+                }
+                ]
+              };
+            
+              const config = {
+                type: 'line',
+                data: data,
+                options: {}
+              };
+              const myChart = new Chart(
+                document.getElementById('lineChart'),
+                config
+              );
+              
+            </script>
+
+            <hr>
+          
+      </div>
+
+      <!-- Barplot -->
+      <div style="width: 40em;">
+        <div style="text-align: center;"> {{name|safe}} </div>
+          <canvas id="line2Chart"> </canvas>
+          
+          <script>
+            
+              const labels2 = ['65', '59', '80', '81', '56', '55', '40'];
+              const data2 = {
+              labels: labels2,
+              datasets: [{
+                  label: 'Reference Distribution',
+                  data: [65, 59, 80, 81, 56, 55, 40],
+                  backgroundColor: [
+                  'rgba(75, 192, 192, 0.2)'
+                  ],
+                  borderColor: [
+                  'rgba(75, 192, 192)'
+                  ],
+                  borderWidth: 1
+              },
+              {
+                  label: 'Current Distribution',
+                  data: [15, 29, 85, 71, 46, 45, 45],
+                  backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)'
+                  ],
+                  borderColor: [
+                  'rgba(255, 99, 132)'
+                  ],
+                  borderWidth: 1
+              }
+              ]
+              };
+            
+              const config2 = {
+                  type: 'bar',
+                  data: data2,
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
+                    }
+                  },
+                };
+
+              const my2Chart = new Chart(
+                document.getElementById('line2Chart'),
+                config2
+              );
+              
+            </script>
+
+            <hr>
+          
+      </div>    
+    </div>
+
+    
+{% endblock %}

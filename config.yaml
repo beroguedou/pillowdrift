@@ -1,0 +1,36 @@
+model:
+  variables:
+    categorical:
+      csp:
+        - "a"
+        - "b"
+        - "c"
+        - "d"
+        - "e"
+        - "f"
+      sex:
+        - "M"
+        - "F"
+    numerical:
+      ordinal:
+        - number children
+      continuous:
+        - total amount
+        - price
+    target: churn
+    target predicted: probability churn 
+  inference date: date
+
+service:
+  memory percentage: memory
+  cpu percentage: cpu
+  requests per second: qps
+  latency: latency
+
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="flex-container" style="display: flex;  justify-content: space-around;";>
+    <div style="width: 60em;">
+        <div style="text-align: center;"> {{name|safe}} </div>
+        <canvas id="lineChart"> </canvas>
+        
+        <script>
+          
+            const data = {
+              labels: {{ labels | safe }},
+              datasets: [{
+                label: 'Reference Distribution',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                borderColor: 'rgb(75, 192, 192)',
+                data: {{ values | safe }},
+                lineTension: 0.15
+              }]
+            };
+          
+            const config = {
+              type: 'line',
+              data: data,
+              options: {}
+            };
+            const myChart = new Chart(
+              document.getElementById('lineChart'),
+              config
+            );
+            
+          </script>
+
+          <hr>
+        
+    </div>
+  </div>
+{% endblock %}
