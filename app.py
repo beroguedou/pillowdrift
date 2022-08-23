@@ -55,7 +55,11 @@ def ml_dashboard():
     name = "Variable: Montant net (euros) <br> Drift: not detected <br> P-value: {}".format(0.13679)
     elements = [(name, labels, values1, values2, 'continuous'), 
                 (name, labels, values1, values2, 'continuous'),
-                (name, labels, values1, values2, 'continuous')
+                (name, labels, values1, values2, 'continuous'),
+                (name, labels, values1, values2, 'continuousi'), 
+                (name, labels, values1, values2, 'continuousi'),
+                (name, labels, values1, values2, 'continuousi'),
+                (name, labels, values1, values2, 'continuousi')
                 ]
     return render_template('ml_dashboard.html', elements=elements)
 

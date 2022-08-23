@@ -59,46 +59,47 @@
             
         </div>
         
-        
-
+      
+      {% else %}
         <!-- Barplot -->
         <div style="width: 35em;">
+          
           <div style="text-align: center;"> {{name|safe}} </div>
             <canvas id="barChart{{ loop.index }}"> </canvas>
             
             <script>
+                const ctx_bar{{ loop.index }} = document.getElementById('barChart{{ loop.index }}').getContext('2d');
+
+                const fakelabels{{ loop.index }} = ['65', '59', '80', '81', '56', '55', '40'];
+                const data_bar{{ loop.index }} = {labels: fakelabels{{ loop.index }},
+                  datasets: [{
+                      label: 'Reference Distribution',
+                      data: [65, 59, 80, 81, 56, 55, 40],
+                      backgroundColor: [
+                      'rgba(75, 192, 192, 0.2)'
+                      ],
+                      borderColor: [
+                      'rgba(75, 192, 192)'
+                      ],
+                      borderWidth: 1
+                  },
+                  {
+                      label: 'Current Distribution',
+                      data: [15, 29, 85, 71, 46, 45, 45],
+                      backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)'
+                      ],
+                      borderColor: [
+                      'rgba(255, 99, 132)'
+                      ],
+                      borderWidth: 1
+                  }
+                  ]
+                  };
               
-                const labels2{{ loop.index }} = ['65', '59', '80', '81', '56', '55', '40'];
-                const data{{ loop.index }} = {
-                labels: labels2{{ loop.index }},
-                datasets: [{
-                    label: 'Reference Distribution',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)'
-                    ],
-                    borderColor: [
-                    'rgba(75, 192, 192)'
-                    ],
-                    borderWidth: 1
-                },
-                {
-                    label: 'Current Distribution',
-                    data: [15, 29, 85, 71, 46, 45, 45],
-                    backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)'
-                    ],
-                    borderColor: [
-                    'rgba(255, 99, 132)'
-                    ],
-                    borderWidth: 1
-                }
-                ]
-                };
-              
-                const config{{ loop.index }} = {
+                const config_bar{{ loop.index }} = {
                     type: 'bar',
-                    data: data{{ loop.index }},
+                    data: data_bar{{ loop.index }},
                     options: {
                       scales: {
                         y: {
@@ -108,9 +109,9 @@
                     },
                   };
 
-                const myChart{{ loop.index }} = new Chart(
-                  document.getElementById('barChart{{ loop.index }}'),
-                  config{{ loop.index }}
+                const myBarChart{{ loop.index }} = new Chart(
+                  ctx_bar{{ loop.index }},
+                  config_bar{{ loop.index }}
                 );
                 
               </script>
