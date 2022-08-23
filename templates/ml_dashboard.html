@@ -11,109 +11,115 @@
         {% set labels = element[1] %}
         {% set values1 = element[2] %}
         {% set values2 = element[3] %}
-       
-      <div id="toto" style="width: 35em;">
-          <div  style="text-align: center;"> {{name|safe}} </div>
-          <canvas id="lineChart{{ loop.index }}"> </canvas>
-          
-          <script>
-            const ctx{{ loop.index }} = document.getElementById('lineChart{{ loop.index }}').getContext('2d');
+        {% set type = element[4] %}
 
-              const data = {
-                labels: {{ labels|safe }},
+        {% if type == 'continuous' %}
+       
+        <div id="toto" style="width: 35em;">
+            <div  style="text-align: center;"> {{name|safe}} </div>
+            <canvas id="lineChart{{ loop.index }}"> </canvas>
+            
+            <script>
+              const ctx{{ loop.index }} = document.getElementById('lineChart{{ loop.index }}').getContext('2d');
+
+                const data{{ loop.index }} = {
+                  labels: {{ labels|safe }},
+                  datasets: [{
+                    label: 'Reference Distribution',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 0.75,
+                    data: {{ values1 | safe }},
+                    lineTension: 0.15
+                  },
+                  {
+                    label: 'Current Distribution',
+                    backgroundColor: 'rgb(255, 99, 132, 0.2)',
+                    fill: true,
+                    borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 0.75,
+                    data: {{ values2|safe }},
+                    lineTension: 0.15
+                  }
+                  ]
+                };
+              
+                const config{{ loop.index }} = {
+                  type: 'line',
+                  data: data{{ loop.index }}
+                };
+                
+                const myChart{{ loop.index }} = new Chart(ctx{{ loop.index }},
+                  config{{ loop.index }}
+                );
+              </script>
+
+              <hr>
+            
+        </div>
+        
+        
+
+        <!-- Barplot -->
+        <div style="width: 35em;">
+          <div style="text-align: center;"> {{name|safe}} </div>
+            <canvas id="barChart{{ loop.index }}"> </canvas>
+            
+            <script>
+              
+                const labels2{{ loop.index }} = ['65', '59', '80', '81', '56', '55', '40'];
+                const data{{ loop.index }} = {
+                labels: labels2{{ loop.index }},
                 datasets: [{
-                  label: 'Reference Distribution',
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                  fill: true,
-                  borderColor: 'rgb(75, 192, 192)',
-                  borderWidth: 0.75,
-                  data: {{ values1 | safe }},
-                  lineTension: 0.15
+                    label: 'Reference Distribution',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                    'rgba(75, 192, 192)'
+                    ],
+                    borderWidth: 1
                 },
                 {
-                  label: 'Current Distribution',
-                  backgroundColor: 'rgb(255, 99, 132, 0.2)',
-                  fill: true,
-                  borderColor: 'rgb(255, 99, 132)',
-                  borderWidth: 0.75,
-                  data: {{ values2|safe }},
-                  lineTension: 0.15
+                    label: 'Current Distribution',
+                    data: [15, 29, 85, 71, 46, 45, 45],
+                    backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                    'rgba(255, 99, 132)'
+                    ],
+                    borderWidth: 1
                 }
                 ]
-              };
-            
-              const config = {
-                type: 'line',
-                data: data
-              };
-              
-              const myChart{{ loop.index }} = new Chart(ctx{{ loop.index }},
-                config
-              );
-            </script>
-
-            <hr>
-          
-      </div>
-      {% endfor %}
-
-      <!-- Barplot 
-      <div style="width: 40em;">
-        <div style="text-align: center;"> {{name|safe}} </div>
-          <canvas id="line2Chart"> </canvas>
-          
-          <script>
-            
-              const labels2 = ['65', '59', '80', '81', '56', '55', '40'];
-              const data2 = {
-              labels: labels2,
-              datasets: [{
-                  label: 'Reference Distribution',
-                  data: [65, 59, 80, 81, 56, 55, 40],
-                  backgroundColor: [
-                  'rgba(75, 192, 192, 0.2)'
-                  ],
-                  borderColor: [
-                  'rgba(75, 192, 192)'
-                  ],
-                  borderWidth: 1
-              },
-              {
-                  label: 'Current Distribution',
-                  data: [15, 29, 85, 71, 46, 45, 45],
-                  backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)'
-                  ],
-                  borderColor: [
-                  'rgba(255, 99, 132)'
-                  ],
-                  borderWidth: 1
-              }
-              ]
-              };
-            
-              const config2 = {
-                  type: 'bar',
-                  data: data2,
-                  options: {
-                    scales: {
-                      y: {
-                        beginAtZero: true
-                      }
-                    }
-                  },
                 };
-
-              const my2Chart = new Chart(
-                document.getElementById('line2Chart'),
-                config2
-              );
               
-            </script>
+                const config{{ loop.index }} = {
+                    type: 'bar',
+                    data: data{{ loop.index }},
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      }
+                    },
+                  };
 
-            <hr>
-          
-      </div>    -->
+                const myChart{{ loop.index }} = new Chart(
+                  document.getElementById('barChart{{ loop.index }}'),
+                  config{{ loop.index }}
+                );
+                
+              </script>
+
+              <hr>
+            
+        </div>    
+        {% endif %}
+        {% endfor %}
     </div> 
 
     

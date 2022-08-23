@@ -53,7 +53,10 @@ def ml_dashboard():
     values1 = [row[1] for row in data]
     values2 = [row[1] + 224 for row in data]
     name = "Variable: Montant net (euros) <br> Drift: not detected <br> P-value: {}".format(0.13679)
-    elements = [(name, labels, values1, values2), (name, labels, values1, values2)]
+    elements = [(name, labels, values1, values2, 'continuous'), 
+                (name, labels, values1, values2, 'continuous'),
+                (name, labels, values1, values2, 'continuous')
+                ]
     return render_template('ml_dashboard.html', elements=elements)
 
 @app.route('/about', methods=['GET'])
