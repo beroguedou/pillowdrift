@@ -3,20 +3,30 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title> {% block title %} ML DASHBOARD {% endblock %} </title>
-    <div class="flex-container" style="display: flex;  justify-content: space-around;";>
-      <div style="width: 40em;">
-          <div style="text-align: center;"> {{name|safe}} </div>
-          <canvas id="lineChart"> </canvas>
+    <div class="flex-container" style="display: flex;  justify-content: space-around; flex-wrap: wrap;";>
+      <!-- Continuous data graph -->
+      {% for element in elements %}
+        
+        {% set name = element[0] %}
+        {% set labels = element[1] %}
+        {% set values1 = element[2] %}
+        {% set values2 = element[3] %}
+       
+      <div id="toto" style="width: 35em;">
+          <div  style="text-align: center;"> {{name|safe}} </div>
+          <canvas id="lineChart{{ loop.index }}"> </canvas>
           
           <script>
-            
+            const ctx{{ loop.index }} = document.getElementById('lineChart{{ loop.index }}').getContext('2d');
+
               const data = {
-                labels: {{ labels | safe }},
+                labels: {{ labels|safe }},
                 datasets: [{
                   label: 'Reference Distribution',
                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
                   fill: true,
                   borderColor: 'rgb(75, 192, 192)',
+                  borderWidth: 0.75,
                   data: {{ values1 | safe }},
                   lineTension: 0.15
                 },
@@ -25,7 +35,8 @@
                   backgroundColor: 'rgb(255, 99, 132, 0.2)',
                   fill: true,
                   borderColor: 'rgb(255, 99, 132)',
-                  data: {{ values2 | safe }},
+                  borderWidth: 0.75,
+                  data: {{ values2|safe }},
                   lineTension: 0.15
                 }
                 ]
@@ -33,21 +44,20 @@
             
               const config = {
                 type: 'line',
-                data: data,
-                options: {}
+                data: data
               };
-              const myChart = new Chart(
-                document.getElementById('lineChart'),
+              
+              const myChart{{ loop.index }} = new Chart(ctx{{ loop.index }},
                 config
               );
-              
             </script>
 
             <hr>
           
       </div>
+      {% endfor %}
 
-      <!-- Barplot -->
+      <!-- Barplot 
       <div style="width: 40em;">
         <div style="text-align: center;"> {{name|safe}} </div>
           <canvas id="line2Chart"> </canvas>
@@ -103,8 +113,8 @@
 
             <hr>
           
-      </div>    
-    </div>
+      </div>    -->
+    </div> 
 
     
 {% endblock %}
