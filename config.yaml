@@ -8,9 +8,12 @@ model:
         - "d"
         - "e"
         - "f"
-      sex:
+      gender:
         - "M"
         - "F"
+      churn:
+        - 0
+        - 1
     numerical:
       ordinal:
         - number children
