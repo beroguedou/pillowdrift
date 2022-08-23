@@ -52,11 +52,13 @@ def ml_dashboard():
     labels = [row[0] for row in data]
     values1 = [row[1] for row in data]
     values2 = [row[1] + 224 for row in data]
-    name = "Variable: Montant net (euros) <br> Drift: not detected <br> P-value: {}".format(0.13679)
+    pvalue = 0.13677
+    name = "Variable: Montant net (euros) <br> Drift: not detected <br> P-value: {}".format(pvalue)
     elements = [(name, labels, values1, values2, 'continuous'), 
                 (name, labels, values1, values2, 'continuous'),
                 (name, labels, values1, values2, 'continuous'),
                 (name, labels, values1, values2, 'continuousi'), 
+                (name, labels, values1, values2, 'continuousi'),
                 (name, labels, values1, values2, 'continuousi'),
                 (name, labels, values1, values2, 'continuousi'),
                 (name, labels, values1, values2, 'continuousi')
