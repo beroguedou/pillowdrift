@@ -1,15 +1,18 @@
+def frequency_filter(labels, values_ref, values_cur, top=5):
+    top = top - 1
+    labels = [x for x, _ in sorted(zip(labels, values_ref), key=lambda pair: pair[0])]
+    values_cur = [x for x, _ in sorted(zip(values_cur, values_ref), key=lambda pair: pair[0])]
+    values_ref = sorted(values_ref)
+    return labels[:top], values_ref[:top], values_cur[:top]
+
 
 def categorical_frequency(labels, val_ref, val_cur):
-    #labels_numbers_ref = {}
-    #labels_numbers_cur = {}
     percentages_ref = []
     percentages_cur = []
 
     for lab in labels:
         nb_ref = sum([1 if element == lab else 0 for element in val_ref ])
         nb_cur =  sum([1 if element == lab else 0 for element in val_cur])
-        #labels_numbers_ref[str(lab)] = nb_ref
-        #labels_numbers_cur[str(lab)] = nb_cur
         percentages_ref.append(nb_ref)
         percentages_cur.append(nb_cur)
     val_ref = [element/sum(percentages_ref) for element in percentages_ref]
@@ -27,6 +30,7 @@ def categorical_data(data_reference, data_current, columns, config):
             idx = categorical.index(col)
             lab = labels[idx]
             lab, val_ref, val_cur = categorical_frequency(lab, val_ref, val_cur)
+            lab, val_ref, val_cur = frequency_filter(lab, val_ref, val_cur, top=5)
             lab = [str(element) for element in lab]
             element = (col, lab, val_ref, val_cur)
             categorical_elements.append(element)

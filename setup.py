@@ -12,13 +12,13 @@ all_requirements = [
 ]
 
 setup(
-    name='monitorious',
+    name='mool',
     version='0.1.0',
     author="Béranger GUEDOU",
     author_email="beranger@pillowanalytica.com",
     packages=[
-        "monitorious",
-        "monitorious.utils"
+        "mool",
+        "mool.utils"
         ],
     licence='LICENCE',
     description="Application that allows machine learning and drift monitoring.",
