@@ -1,11 +1,11 @@
 from flask import Flask, render_template
-from monitorious.utils.numerical import continuous_data, numerical_distribution_sampler
-from monitorious.utils.categorical import categorical_data, categorical_distribution_sampler
-from monitorious.utils.load import load_config, load_data_from_csv
+from mool.utils.numerical import continuous_data, numerical_distribution_sampler
+from mool.utils.categorical import categorical_data, categorical_distribution_sampler
+from mool.utils.load import load_config, load_data_from_csv
 
-reference_datapath = "/Users/berangerguedou/projects/monitorious/data/sample_reference.csv"
-current_datapath = "/Users/berangerguedou/projects/monitorious/data/sample_current.csv"
-config_path = "/Users/berangerguedou/projects/monitorious/config.yaml"
+reference_datapath = "/Users/berangerguedou/projects/mool/data/sample_reference.csv"
+current_datapath = "/Users/berangerguedou/projects/mool/data/sample_current.csv"
+config_path = "/Users/berangerguedou/projects/mool/config.yaml"
 
 config = load_config(config_path)
 

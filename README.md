@@ -1,4 +1,4 @@
-# monitorious
+# Mool
 Monitor your deployed Machine Learning models and system easily.
 
 ## Roadmap
