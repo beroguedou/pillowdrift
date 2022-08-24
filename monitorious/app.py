@@ -1,4 +1,12 @@
 from flask import Flask, render_template
+from monitorious.utils.numerical import continuous_data, distribution
+from monitorious.utils.load import load_config, load_data_from_csv
+
+reference_datapath = "/Users/berangerguedou/projects/monitorious/data/sample_reference.csv"
+current_datapath = "/Users/berangerguedou/projects/monitorious/data/sample_current.csv"
+config_path = "/Users/berangerguedou/projects/monitorious/config.yaml"
+
+config = load_config(config_path)
 
 app = Flask(__name__)
 
@@ -6,63 +14,14 @@ app = Flask(__name__)
 @app.route('/dashboard', methods=['GET'])
 @app.route('/', methods=['GET'])
 def ml_dashboard():
-    data = [
-        ("01-01-2020", 1597),
-        ("02-01-2020", 1456),
-        ("02-01-2020", 1908),
-        ("04-01-2020", 896),
-        ("05-01-2020", - 753),
-        ("06-01-2020", 1597),
-        ("07-01-2020", 159),
-        ("08-01-2020", 15),
-        ("09-01-2020", 197),
-        ("10-01-2020", 157),
-        ("01-01-2020", 1597),
-        ("02-01-2020", 1456),
-        ("02-01-2020", 1908),
-        ("04-01-2020", 896),
-        ("05-01-2020", - 753),
-        ("06-01-2020", 1597),
-        ("07-01-2020", 159),
-        ("08-01-2020", 15),
-        ("09-01-2020", 197),
-        ("10-01-2020", 157),
-        ("01-01-2020", 1597),
-        ("02-01-2020", 1456),
-        ("02-01-2020", 1908),
-        ("04-01-2020", 896),
-        ("05-01-2020", - 753),
-        ("06-01-2020", 1597),
-        ("07-01-2020", 159),
-        ("08-01-2020", 15),
-        ("09-01-2020", 197),
-        ("10-01-2020", 157),
-        ("01-01-2020", 1597),
-        ("02-01-2020", 1456),
-        ("02-01-2020", 1908),
-        ("04-01-2020", 896),
-        ("05-01-2020", - 753),
-        ("06-01-2020", 1597),
-        ("07-01-2020", 159),
-        ("08-01-2020", 15),
-        ("09-01-2020", 197),
-        ("10-01-2020", 157),
-    ]
+    elements = []
+    
+    reference_data, columns = load_data_from_csv(reference_datapath)
+    current_data, columns = load_data_from_csv(current_datapath)
 
-    labels = [row[0] for row in data]
-    values1 = [row[1] for row in data]
-    values2 = [row[1] + 224 for row in data]
-    pvalue = 0.13677
-    name = "Variable: Montant net (euros) <br> Drift: not detected <br> P-value: {}".format(pvalue)
-    elements = [(name, labels, values1, values2, 'continuous'), 
-                (name, labels, values1, values2, 'continuous'),
-                (name, labels, values1, values2, 'continuous'),
-                (name, labels, values1, values2, 'continuousi'), 
-                (name, labels, values1, values2, 'continuousi'),
-                (name, labels, values1, values2, 'continuousi'),
-                (name, labels, values1, values2, 'continuousi'),
-                (name, labels, values1, values2, 'continuousi')
-                ]
+    numerical_elements = continuous_data(reference_data, current_data, columns, config)
+    numerical_elements = distribution(numerical_elements)
+    elements.extend(numerical_elements)
     return render_template('ml_dashboard.html', elements=elements)
 
 @app.route('/about', methods=['GET'])

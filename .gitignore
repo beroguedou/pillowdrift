@@ -6,6 +6,8 @@
 # C extensions
 *.so
 
+# Notebooks
+**/*ipynb
 # Distribution / packaging
 .Python
 build/
