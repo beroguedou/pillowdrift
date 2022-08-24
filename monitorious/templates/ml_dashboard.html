@@ -70,11 +70,10 @@
             <script>
                 const ctx_bar{{ loop.index }} = document.getElementById('barChart{{ loop.index }}').getContext('2d');
 
-                const fakelabels{{ loop.index }} = ['65', '59', '80', '81', '56', '55', '40'];
-                const data_bar{{ loop.index }} = {labels: fakelabels{{ loop.index }},
+                const data_bar{{ loop.index }} = {labels: {{ labels | safe }},
                   datasets: [{
                       label: 'Reference Distribution',
-                      data: [65, 59, 80, 81, 56, 55, 40],
+                      data: {{ values1 | safe }},
                       backgroundColor: [
                       'rgba(75, 192, 192, 0.2)'
                       ],
@@ -85,7 +84,7 @@
                   },
                   {
                       label: 'Current Distribution',
-                      data: [15, 29, 85, 71, 46, 45, 45],
+                      data: {{ values2 | safe }},
                       backgroundColor: [
                       'rgba(255, 99, 132, 0.2)'
                       ],

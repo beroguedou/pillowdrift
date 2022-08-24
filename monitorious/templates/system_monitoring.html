@@ -5,7 +5,7 @@
 
 <div class="flex-container" style="display: flex;  justify-content: space-around;";>
     <div style="width: 60em;">
-        <div style="text-align: center;"> {{name|safe}} </div>
+        
         <canvas id="lineChart"> </canvas>
         
         <script>
@@ -13,7 +13,7 @@
             const data = {
               labels: {{ labels | safe }},
               datasets: [{
-                label: 'Reference Distribution',
+                label: 'Mean requests per second for each hour',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 fill: true,
                 borderColor: 'rgb(75, 192, 192)',
