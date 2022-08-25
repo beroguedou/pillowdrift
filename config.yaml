@@ -22,7 +22,7 @@ model:
         - price
     target: churn
     target predicted: probability churn 
-  inference date: date
+  inference date: dates
 
 service:
   memory percentage: memory
