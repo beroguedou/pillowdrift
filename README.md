@@ -1,4 +1,4 @@
-# Mool
+# MooL
 Monitor your deployed Machine Learning models and system easily.
 
 ## Roadmap
