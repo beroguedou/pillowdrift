@@ -5,9 +5,16 @@ from mool.utils.load import load_config, load_data_from_csv
 
 reference_datapath = "/Users/berangerguedou/projects/mool/data/sample_reference.csv"
 current_datapath = "/Users/berangerguedou/projects/mool/data/sample_current.csv"
+system_datapath = "/Users/berangerguedou/projects/mool/data/system.csv"
 config_path = "/Users/berangerguedou/projects/mool/config.yaml"
-
 config = load_config(config_path)
+
+# system data
+system_data, system_columns = load_data_from_csv(system_datapath, config)
+# ml data
+reference_data, _ = load_data_from_csv(reference_datapath, config)
+current_data, columns = load_data_from_csv(current_datapath, config)
+
 
 app = Flask(__name__)
 
@@ -16,9 +23,6 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def ml_dashboard():
     elements = []
-    
-    reference_data, columns = load_data_from_csv(reference_datapath)
-    current_data, columns = load_data_from_csv(current_datapath)
     # Numerical elements
     numerical_elements = continuous_data(reference_data, current_data, columns, config)
     numerical_elements = numerical_distribution_sampler(numerical_elements)
@@ -36,31 +40,17 @@ def about():
 
 @app.route('/system', methods=['GET'])
 def system_monitoring():
-    data = [
-        ("13h", 1597),
-        ("14h", 1456),
-        ("15h", 1908),
-        ("16h", 896),
-        ("17h", 53),
-        ("18h", 1597),
-        ("19h", 159),
-        ("20h", 15),
-        ("21h", 197),
-        ("22h", 157),
-        ("23h", 1597),
-        ("00h", 1456),
-        ("01h", 2908),
-        ("02h", 896),
-        ("03h", 53),
-        ("04h", 1597),
-        ("05h", 159),
-        ("06h", 55),
-        ("07h", 187),
-        ("08h", 253)
-    ]
-    labels = [row[0] for row in data]
-    values = [row[1] for row in data]
-    return render_template('system_monitoring.html', labels=labels, values=values)
+    
+    system_data_map = {}
+    for col, element in zip(system_columns, system_data):
+        system_data_map[col] = element
+    
+    qps_col = config['service']['requests per second']
+    date_col = config['model']['inference date']
+    qps = system_data_map[qps_col]
+    dates = system_data_map[date_col]
+    
+    return render_template('system_monitoring.html', labels=dates, values=qps)
 
 if __name__ == '__main__':
     app.run(debug=True)
