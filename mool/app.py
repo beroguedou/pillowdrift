@@ -1,10 +1,11 @@
 from flask import Flask, render_template
-from monitorious.utils.numerical import continuous_data, distribution
-from monitorious.utils.load import load_config, load_data_from_csv
+from mool.utils.numerical import continuous_data, numerical_distribution_sampler
+from mool.utils.categorical import categorical_data, categorical_distribution_sampler
+from mool.utils.load import load_config, load_data_from_csv
 
-reference_datapath = "/Users/berangerguedou/projects/monitorious/data/sample_reference.csv"
-current_datapath = "/Users/berangerguedou/projects/monitorious/data/sample_current.csv"
-config_path = "/Users/berangerguedou/projects/monitorious/config.yaml"
+reference_datapath = "/Users/berangerguedou/projects/mool/data/sample_reference.csv"
+current_datapath = "/Users/berangerguedou/projects/mool/data/sample_current.csv"
+config_path = "/Users/berangerguedou/projects/mool/config.yaml"
 
 config = load_config(config_path)
 
@@ -18,10 +19,15 @@ def ml_dashboard():
     
     reference_data, columns = load_data_from_csv(reference_datapath)
     current_data, columns = load_data_from_csv(current_datapath)
-
+    # Numerical elements
     numerical_elements = continuous_data(reference_data, current_data, columns, config)
-    numerical_elements = distribution(numerical_elements)
+    numerical_elements = numerical_distribution_sampler(numerical_elements)
     elements.extend(numerical_elements)
+    # Categorical elements
+    categorical_elements = categorical_data(reference_data, current_data, columns, config)
+    categorical_elements = categorical_distribution_sampler(categorical_elements)
+    elements.extend(categorical_elements)
+
     return render_template('ml_dashboard.html', elements=elements)
 
 @app.route('/about', methods=['GET'])
@@ -54,8 +60,7 @@ def system_monitoring():
     ]
     labels = [row[0] for row in data]
     values = [row[1] for row in data]
-    name = "Mean requests per second for each hour"
-    return render_template('system_monitoring.html', name=name, labels=labels, values=values)
+    return render_template('system_monitoring.html', labels=labels, values=values)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -11,8 +11,6 @@ def load_config(configpath):
 
 def load_data_from_csv(datapath):
     dataframe = pd.read_csv(datapath)
-
-    #categorical = list(config['model']['variables']['categorical'].keys())
     #ordinal = config['model']['variables']['numerical']['ordinal']
     data = []
     columns = dataframe.columns.tolist()

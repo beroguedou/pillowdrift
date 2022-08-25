@@ -1,4 +1,3 @@
-import numpy as np
 from sklearn.neighbors import KernelDensity
 
 
@@ -16,7 +15,7 @@ def estimate_density(X):
     kde = KernelDensity(kernel='tophat', bandwidth=0.2).fit(X)
     return kde
 
-def distribution(numerical_elements):
+def numerical_distribution_sampler(numerical_elements):
     new_numerical_elements = []
     for element in numerical_elements:
         name = element[0]
