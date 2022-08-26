@@ -12,13 +12,13 @@ all_requirements = [
 ]
 
 setup(
-    name='mool',
+    name='pillowdrift',
     version='0.1.0',
     author="Béranger GUEDOU",
     author_email="beranger@pillowanalytica.com",
     packages=[
-        "mool",
-        "mool.utils"
+        "pillowdrift",
+        "pillowdrift.utils"
         ],
     licence='LICENCE',
     description="Application that allows machine learning and drift monitoring.",

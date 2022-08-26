@@ -2,7 +2,7 @@ from scipy.stats import chisquare
 
 def chisquaretest(values_reference, values_current, threshold=0.95):
     _, pvalue = chisquare(values_current, values_reference)
-    if pvalue <= 1 - threshold:
+    if pvalue < 1 - threshold:
         verdict = "not detected"
     else:
         verdict = "detected"

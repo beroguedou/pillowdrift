@@ -1,19 +1,19 @@
 from flask import Flask, render_template
-from mool.utils.numerical import continuous_data, numerical_distribution_sampler
-from mool.utils.categorical import categorical_data, categorical_distribution_sampler
-from mool.utils.load import load_config, load_data_from_csv
+from pillowdrift.utils.numerical import continuous_data, numerical_distribution_sampler
+from pillowdrift.utils.categorical import categorical_data, categorical_distribution_sampler
+from pillowdrift.utils.load import load_config, load_data_from_csv
 
-reference_datapath = "/Users/berangerguedou/projects/mool/data/sample_reference.csv"
-current_datapath = "/Users/berangerguedou/projects/mool/data/sample_current.csv"
-system_datapath = "/Users/berangerguedou/projects/mool/data/system.csv"
-config_path = "/Users/berangerguedou/projects/mool/config.yaml"
+ml_reference_datapath = "/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv"
+ml_current_datapath = "/Users/berangerguedou/projects/pillowdrift/data/sample_current.csv"
+system_datapath = "/Users/berangerguedou/projects/pillowdrift/data/system.csv"
+config_path = "/Users/berangerguedou/projects/pillowdrift/config.yaml"
 config = load_config(config_path)
 
 # system data
 system_data, system_columns = load_data_from_csv(system_datapath, config)
 # ml data
-reference_data, _ = load_data_from_csv(reference_datapath, config)
-current_data, columns = load_data_from_csv(current_datapath, config)
+ml_reference_data, _ = load_data_from_csv(ml_reference_datapath, config)
+ml_current_data, columns = load_data_from_csv(ml_current_datapath, config)
 
 
 app = Flask(__name__)
@@ -24,11 +24,11 @@ app = Flask(__name__)
 def ml_dashboard():
     elements = []
     # Numerical elements
-    numerical_elements = continuous_data(reference_data, current_data, columns, config)
+    numerical_elements = continuous_data(ml_reference_data, ml_current_data, columns, config)
     numerical_elements = numerical_distribution_sampler(numerical_elements)
     elements.extend(numerical_elements)
     # Categorical elements
-    categorical_elements = categorical_data(reference_data, current_data, columns, config)
+    categorical_elements = categorical_data(ml_reference_data, ml_current_data, columns, config)
     categorical_elements = categorical_distribution_sampler(categorical_elements)
     elements.extend(categorical_elements)
 
