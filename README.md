@@ -13,4 +13,5 @@ Monitor your deployed Machine Learning models and system easily.
 - [ ] Doughnut graph for cpu.
 - [ ] Doughnut graph for ram.
 - [ ] Graph for prediction drift 
+- [ ] Make pillowdrift start and stop commands.
 - [ ] A board that shows which variables drifted. 
