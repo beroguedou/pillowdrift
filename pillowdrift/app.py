@@ -39,18 +39,20 @@ def about():
     return render_template('about.html')
 
 @app.route('/system', methods=['GET'])
-def system_monitoring():
+def service_monitoring():
     
     system_data_map = {}
     for col, element in zip(system_columns, system_data):
         system_data_map[col] = element
     
     qps_col = config['service']['requests per second']
+    latency_col = config['service']['latency']
     date_col = config['model']['inference date']
     qps = system_data_map[qps_col]
+    latency = system_data_map[latency_col]
     dates = system_data_map[date_col]
     
-    return render_template('system_monitoring.html', labels=dates, values=qps)
+    return render_template('service_monitoring.html', labels=dates, qps=qps, latency=latency)
 
 if __name__ == '__main__':
     app.run(debug=True)
