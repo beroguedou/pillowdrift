@@ -15,13 +15,11 @@ model:
         - 0
         - 1
     numerical:
-      ordinal:
-        - number children
       continuous:
         - total amount
         - price
-    target: churn
     target predicted: probability churn 
+    task: classification
   inference date: dates
 
 service:

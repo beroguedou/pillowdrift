@@ -1,13 +1,10 @@
-
 import yaml 
 import pandas as pd
-
 
 def load_config(configpath):
     with open(configpath, 'r') as file:
         content = yaml.safe_load(file)
     return content
-
 
 def load_data_from_csv(datapath, config):
     #ordinal = config['model']['variables']['numerical']['ordinal']
@@ -25,9 +22,7 @@ def load_data_from_csv(datapath, config):
     
     return data, columns
     
-
 def load_data_from_mysql():
     pass
-
 def load_data_from_postgresql():
     pass
