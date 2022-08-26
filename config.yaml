@@ -15,24 +15,19 @@ model:
         - 0
         - 1
     numerical:
-      continuous:
-        - total amount
-        - price
-    target predicted: probability churn 
-    task: classification
+      - total amount
+      - price
+      - probability churn 
   inference date: dates
-
 service:
   memory percentage: memory
   cpu percentage: cpu
   requests per second: qps
   latency: latency
-
-  
 general:
   port: 5000
   host: "0.0.0.0"
-  top-category: 5
+  top-category: 4
 
 
 
