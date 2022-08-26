@@ -1,4 +1,4 @@
-# MooL
+# Pillow Drift
 Monitor your deployed Machine Learning models and system easily.
 
 ## Roadmap
