@@ -14,3 +14,7 @@ Monitor your deployed Machine Learning models and system easily.
 - [ ] Typing
 - [ ] Styling flake8
 - [ ] Precommit hook
+
+## Start the dashbord
+
+pillowdrift start --configpath= --host= --port= --datapath-ref= --datapath-cur= --host= --port=

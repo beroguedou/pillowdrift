@@ -5,27 +5,34 @@ from pillowdrift.utils.load import load_config, load_data_from_csv
 from pillowdrift.utils.app_utils import create_app
 
 
+parser = argparse.ArgumentParser(description=' Helps to turn on the monitoring dashboards .')
+parser.add_argument('--reference-datapath', type=str, help='Path of the reference dataset')
+parser.add_argument('--current-datapath', type=str, help='Path of the current dataset')
+parser.add_argument('--service-datapath', type=str, help='Path of the service metrics dataset')
+parser.add_argument('--configpath', type=str, help='Path of the yaml config.')
+parser.add_argument('--host', type=str, default='127.0.0.1', help='IP address of the host to deploy the dashboard')
+parser.add_argument('--port', type=str, default='5000', help='Port for the dashboard')
 
-ml_reference_datapath = "/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv"
-ml_current_datapath = "/Users/berangerguedou/projects/pillowdrift/data/sample_current.csv"
-system_datapath = "/Users/berangerguedou/projects/pillowdrift/data/system.csv"
-config_path = "/Users/berangerguedou/projects/pillowdrift/config.yaml"
-host = "127.0.0.1"
-port = 5000
+args = parser.parse_args()
+reference_datapath = args.reference_datapath
+current_datapath = args.current_datapath
+service_datapath = args.service_datapath
+configpath = args.configpath
+host = args.host
+port = args.port
 
 # Load config
-config = load_config(config_path)
+config = load_config(configpath)
 # Load system data
-system_data, system_columns = load_data_from_csv(system_datapath, config)
+system_data, system_columns = load_data_from_csv(service_datapath, config)
 # Load ml data
-ml_reference_data, _ = load_data_from_csv(ml_reference_datapath, config)
-ml_current_data, columns = load_data_from_csv(ml_current_datapath, config)
+reference_data, _ = load_data_from_csv(reference_datapath, config)
+current_data, columns = load_data_from_csv(current_datapath, config)
 
 app = Flask(__name__)
 # Create the app with the arguments
-create_app(app, ml_reference_datapath, ml_current_datapath, 
-           system_datapath, config_path, config, system_data, 
-           system_columns, ml_reference_data, ml_current_data,
+create_app(app, config, system_data, 
+           system_columns, reference_data, current_data, 
            columns)
 
 

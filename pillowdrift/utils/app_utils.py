@@ -5,19 +5,18 @@ from pillowdrift.utils.categorical import categorical_data, categorical_distribu
 from pillowdrift.utils.load import load_config, load_data_from_csv
 
 
-def create_app(app, ml_reference_datapath, ml_current_datapath, system_datapath, config_path, config, system_data, system_columns, ml_reference_data, ml_current_data, columns):
-    
+def create_app(app, config, system_data,system_columns, reference_data, current_data, columns):
     @app.route('/ml', methods=['GET'])
     @app.route('/dashboard', methods=['GET'])
     @app.route('/', methods=['GET'])
     def ml_dashboard():
         elements = []
         # Numerical elements
-        numerical_elements = continuous_data(ml_reference_data, ml_current_data, columns, config)
+        numerical_elements = continuous_data(reference_data, current_data, columns, config)
         numerical_elements = numerical_distribution_sampler(numerical_elements)
         elements.extend(numerical_elements)
         # Categorical elements
-        categorical_elements = categorical_data(ml_reference_data, ml_current_data, columns, config)
+        categorical_elements = categorical_data(reference_data, current_data, columns, config)
         categorical_elements = categorical_distribution_sampler(categorical_elements)
         elements.extend(categorical_elements)
 

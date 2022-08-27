@@ -1,20 +1,12 @@
 import os, sys, requests 
-from pillowdrift import app
+from pathlib import Path
 
-absolute_path = os.path.abspath(app.__file__)
+absolute_path_app = os.path.join(Path(__file__).parent.parent, 'app.py')
 
-
-def startapp(configpath, datapath_ref, datapath_cur, datapath_system, host, port):
-    configpath = ...
-    datapath_ref = ...
-    datapath_cur = ...
-    datapath_system = ...
-    host = ...
-    port = ...
+def startapp(configpath, datapath_ref, datapath_cur, datapath_service, host, port):
     # Execute the app.py file with argparse arguments
-    os.system("python absolute_path {} {} {} {} {} {} ".format(configpath, datapath_ref, 
-                                                               datapath_cur, datapath_system, 
-                                                               host, port))
+    os.system("python {} --configpath {} --reference-datapath {} --current-datapath {} --service-datapath {} --host {} --port {} ".format(absolute_path_app, configpath, datapath_ref, 
+                                                               datapath_cur, datapath_service, host, port))
 
 def stopapp(url):
     r = requests.get(url)
@@ -33,22 +25,24 @@ def pillowdrift(options=sys.argv[1:]):
         options_count = 0
         if "--configpath" not in options_dict.keys():
             print("Enter the config path !")
-            sys.exit(1)
+            #sys.exit(1)
         else:
             options_count += 1
         if "--datapath-ref" not in options_dict.keys():
             print("Enter the reference data path !")
-            sys.exit(1)
+            #sys.exit(1)
         else:
             options_count += 1
+
         if "--datapath-cur" not in options_dict.keys():
             print("Enter the current data path !")
-            sys.exit(1)
+            #sys.exit(1)
         else:
             options_count += 1
-        if "--datapath-system" not in options_dict.keys():
+
+        if "--datapath-service" not in options_dict.keys():
             print("Enter the service data path !")
-            sys.exit(1)
+            #sys.exit(1)
         else:
             options_count += 1
         if "--host" not in options_dict.keys():
@@ -58,23 +52,31 @@ def pillowdrift(options=sys.argv[1:]):
         if "--port" not in options_dict.keys():
             port = "5000"
         else:
-            port = int(options_dict["--port"])
+            port = options_dict["--port"]
 
         if options_count == 4:
             configpath = options_dict["--configpath"]
             datapath_ref = options_dict["--datapath-ref"]
             datapath_cur = options_dict["--datapath-cur"]
-            datapath_system = options_dict["--datapath-system"]
+            datapath_service = options_dict["--datapath-service"]
             host = options_dict["--host"]
             port = options_dict["--port"]
 
+            #
+            configpath = "/Users/berangerguedou/projects/pillowdrift/config.yaml"
+            datapath_ref = "/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv"
+            datapath_cur = "/Users/berangerguedou/projects/pillowdrift/data/sample_current.csv"
+            datapath_service = "/Users/berangerguedou/projects/pillowdrift/data/system.csv"
+            host = "127.0.0.1"
+            port = 5000
+            #
+
             # Start flask server
-            print("Lancement de l'application ...\n")
-            print("les configurations sont: ", options_dict)
+            print("Lancement de l'application ...")
             startapp(configpath, 
                      datapath_ref, 
                      datapath_cur, 
-                     datapath_system, 
+                     datapath_service, 
                      host, port)
 
     elif "stop" in options:
