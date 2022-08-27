@@ -22,7 +22,7 @@ pillowdrift start --configpath="/Users/berangerguedou/projects/pillowdrift/confi
                   --datapath-ref="/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv" \
                   --datapath-cur="/Users/berangerguedou/projects/pillowdrift/data/sample_current.csv" \
                   --datapath-service="/Users/berangerguedou/projects/pillowdrift/data/system.csv" \
-                  --host="127.0.0.1" --port="5000" 
+                  --host="127.0.0.1" --port="5000"
 ```
 
 ## Stop the dashbord

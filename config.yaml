@@ -17,7 +17,7 @@ model:
     numerical:
       - total amount
       - price
-      - probability churn 
+      - probability churn
   inference date: dates
 service:
   memory percentage: memory
@@ -26,11 +26,3 @@ service:
   latency: latency
 general:
   top-category: 4
-
-
-
-
-
-
-
-
