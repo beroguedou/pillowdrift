@@ -17,4 +17,16 @@ Monitor your deployed Machine Learning models and system easily.
 
 ## Start the dashbord
 
-pillowdrift start --configpath= --host= --port= --datapath-ref= --datapath-cur= --host= --port=
+```bash
+pillowdrift start --configpath="/Users/berangerguedou/projects/pillowdrift/config.yaml" \
+                  --datapath-ref="/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv" \
+                  --datapath-cur="/Users/berangerguedou/projects/pillowdrift/data/sample_current.csv" \
+                  --datapath-service="/Users/berangerguedou/projects/pillowdrift/data/system.csv" \
+                  --host="127.0.0.1" --port="5000" 
+```
+
+## Stop the dashbord
+
+```bash
+pillowdrift stop --host="127.0.0.1" --port="5000"
+```

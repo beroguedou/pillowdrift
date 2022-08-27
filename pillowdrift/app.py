@@ -35,8 +35,5 @@ create_app(app, config, system_data,
            system_columns, reference_data, current_data, 
            columns)
 
-
-
-
 if __name__ == '__main__':
     app.run(debug=True, host=host, port=port)

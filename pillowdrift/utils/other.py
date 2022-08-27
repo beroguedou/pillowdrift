@@ -62,15 +62,6 @@ def pillowdrift(options=sys.argv[1:]):
             host = options_dict["--host"]
             port = options_dict["--port"]
 
-            #
-            configpath = "/Users/berangerguedou/projects/pillowdrift/config.yaml"
-            datapath_ref = "/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv"
-            datapath_cur = "/Users/berangerguedou/projects/pillowdrift/data/sample_current.csv"
-            datapath_service = "/Users/berangerguedou/projects/pillowdrift/data/system.csv"
-            host = "127.0.0.1"
-            port = 5000
-            #
-
             # Start flask server
             print("Lancement de l'application ...")
             startapp(configpath, 
