@@ -9,7 +9,8 @@ all_requirements = [
     'tqdm==4.64.0',
     'numpy==1.23.2',
     'pandas==1.4.3',
-    'xgboost==1.6.1'
+    'xgboost==1.6.1', 
+    'requests'
 ]
 
 setup(

@@ -1,58 +1,35 @@
-from flask import Flask, render_template
-from pillowdrift.utils.numerical import continuous_data, numerical_distribution_sampler
-from pillowdrift.utils.categorical import categorical_data, categorical_distribution_sampler
+import os, signal
+import argparse
+from flask import Flask
 from pillowdrift.utils.load import load_config, load_data_from_csv
+from pillowdrift.utils.app_utils import create_app
+
+
 
 ml_reference_datapath = "/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv"
 ml_current_datapath = "/Users/berangerguedou/projects/pillowdrift/data/sample_current.csv"
 system_datapath = "/Users/berangerguedou/projects/pillowdrift/data/system.csv"
 config_path = "/Users/berangerguedou/projects/pillowdrift/config.yaml"
-config = load_config(config_path)
+host = "127.0.0.1"
+port = 5000
 
-# system data
+# Load config
+config = load_config(config_path)
+# Load system data
 system_data, system_columns = load_data_from_csv(system_datapath, config)
-# ml data
+# Load ml data
 ml_reference_data, _ = load_data_from_csv(ml_reference_datapath, config)
 ml_current_data, columns = load_data_from_csv(ml_current_datapath, config)
 
-
 app = Flask(__name__)
+# Create the app with the arguments
+create_app(app, ml_reference_datapath, ml_current_datapath, 
+           system_datapath, config_path, config, system_data, 
+           system_columns, ml_reference_data, ml_current_data,
+           columns)
 
-@app.route('/ml', methods=['GET'])
-@app.route('/dashboard', methods=['GET'])
-@app.route('/', methods=['GET'])
-def ml_dashboard():
-    elements = []
-    # Numerical elements
-    numerical_elements = continuous_data(ml_reference_data, ml_current_data, columns, config)
-    numerical_elements = numerical_distribution_sampler(numerical_elements)
-    elements.extend(numerical_elements)
-    # Categorical elements
-    categorical_elements = categorical_data(ml_reference_data, ml_current_data, columns, config)
-    categorical_elements = categorical_distribution_sampler(categorical_elements)
-    elements.extend(categorical_elements)
 
-    return render_template('ml_dashboard.html', elements=elements)
 
-@app.route('/about', methods=['GET'])
-def about():
-    return render_template('about.html')
-
-@app.route('/system', methods=['GET'])
-def service_monitoring():
-    
-    system_data_map = {}
-    for col, element in zip(system_columns, system_data):
-        system_data_map[col] = element
-    
-    qps_col = config['service']['requests per second']
-    latency_col = config['service']['latency']
-    date_col = config['model']['inference date']
-    qps = system_data_map[qps_col]
-    latency = system_data_map[latency_col]
-    dates = system_data_map[date_col]
-    
-    return render_template('service_monitoring.html', labels=dates, qps=qps, latency=latency)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host=host, port=port)
