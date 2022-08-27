@@ -1,3 +1,4 @@
+from importlib.metadata import entry_points
 from setuptools import setup
 
 tests_requirements = ['pytest==7.1.2']
@@ -28,6 +29,11 @@ setup(
     setup_requires=['pytest-runner', 'flake8'],
     test_require=['pytest'],
     test_suite='tests',
+    entry_points={
+        'console_scripts': [
+            'pillowdrift = pillowdrift.utils.other:pillowdrift'
+        ]
+    },
     classifiers=[
         "Development Status :: Beta",
         "Intended Audience :: Data scientists",

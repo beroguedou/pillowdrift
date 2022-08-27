@@ -21,7 +21,7 @@ def load_data_from_csv(datapath, config):
         data.append(dataframe[col].values.tolist())
     
     return data, columns
-    
+
 def load_data_from_mysql():
     pass
 def load_data_from_postgresql():

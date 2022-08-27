@@ -10,3 +10,7 @@ Monitor your deployed Machine Learning models and system easily.
 - [ ] Tests are all we need !
 - [ ] Make pillowdrift start and stop commands. <--- Mah
 - [ ] A board that shows which variables drifted. <--- Ber
+- [ ] Logging
+- [ ] Typing
+- [ ] Styling flake8
+- [ ] Precommit hook
