@@ -4,10 +4,10 @@
 
     <title> {% block title %} ML DASHBOARD {% endblock %} </title>
     <div class="flex-container" style="display: flex;  justify-content: space-around; flex-wrap: wrap;";>
-      
+
       <!-- Continuous data graph -->
       {% for element in elements %}
-        
+
         {% set name = element[0] %}
         {% set labels = element[1] %}
         {% set values1 = element[2] %}
@@ -15,11 +15,11 @@
         {% set type = element[4] %}
 
         {% if type == 'continuous' %}
-       
+
         <div style="width: 35em;">
             <div  style="text-align: center;"> {{name|safe}} </div>
             <canvas id="lineChart{{ loop.index }}"> </canvas>
-            
+
             <script>
               const ctx{{ loop.index }} = document.getElementById('lineChart{{ loop.index }}').getContext('2d');
 
@@ -47,29 +47,29 @@
                   }
                   ]
                 };
-              
+
                 const config{{ loop.index }} = {
                   type: 'line',
                   data: data{{ loop.index }}
                 };
-                
+
                 const myChart{{ loop.index }} = new Chart(ctx{{ loop.index }},
                   config{{ loop.index }}
                 );
               </script>
 
               <hr>
-            
+
         </div>
-        
-      
+
+
       {% else %}
         <!-- Barplot -->
         <div style="width: 35em;">
-          
+
           <div style="text-align: center;"> {{name|safe}} </div>
             <canvas id="barChart{{ loop.index }}"> </canvas>
-            
+
             <script>
                 const ctx_bar{{ loop.index }} = document.getElementById('barChart{{ loop.index }}').getContext('2d');
 
@@ -98,7 +98,7 @@
                   }
                   ]
                   };
-              
+
                 const config_bar{{ loop.index }} = {
                     type: 'bar',
                     data: data_bar{{ loop.index }},
@@ -115,15 +115,15 @@
                   ctx_bar{{ loop.index }},
                   config_bar{{ loop.index }}
                 );
-                
+
               </script>
 
               <hr>
-            
-        </div>    
+
+        </div>
         {% endif %}
         {% endfor %}
-    </div> 
+    </div>
 
-    
+
 {% endblock %}

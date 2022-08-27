@@ -5,11 +5,11 @@
 
 <div class="flex-container" style="display: flex; flex-direction: column; justify-content: space-around;";>
     <div style="width: 80em;">
-        
+
         <canvas id="qpsChart"> </canvas>
-        
+
         <script>
-          
+
             const dataQps = {
               labels: {{ labels | safe }},
               datasets: [{
@@ -22,7 +22,7 @@
                 lineTension: 0.15
               }]
             };
-          
+
             const configQps = {
               type: 'line',
               data: dataQps,
@@ -32,19 +32,19 @@
               document.getElementById('qpsChart'),
               configQps
             );
-            
+
           </script>
 
           <hr>
-        
+
     </div>
     <!-- Latency -->
     <div style="width: 80em;">
-        
+
       <canvas id="latencyChart"> </canvas>
-      
+
       <script>
-        
+
           const dataLatency = {
             labels: {{ labels | safe }},
             datasets: [{
@@ -57,7 +57,7 @@
               lineTension: 0.15
             }]
           };
-        
+
           const configLatency = {
             type: 'line',
             data: dataLatency,
@@ -67,11 +67,11 @@
             document.getElementById('latencyChart'),
             configLatency
           );
-          
+
         </script>
 
         <hr>
-      
+
   </div>
   </div>
 {% endblock %}
