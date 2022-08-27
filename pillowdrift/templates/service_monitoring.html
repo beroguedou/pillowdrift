@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="flex-container" style="display: flex; flex-direction: column; justify-content: space-around;";>
+    <div style="width: 80em;">
+        
+        <canvas id="qpsChart"> </canvas>
+        
+        <script>
+          
+            const dataQps = {
+              labels: {{ labels | safe }},
+              datasets: [{
+                label: 'Mean requests per second for each hour',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                borderColor: 'rgb(75, 192, 192)',
+                borderWidth: 0.75,
+                data: {{ qps | safe }},
+                lineTension: 0.15
+              }]
+            };
+          
+            const configQps = {
+              type: 'line',
+              data: dataQps,
+              options: {}
+            };
+            const myQpsChart = new Chart(
+              document.getElementById('qpsChart'),
+              configQps
+            );
+            
+          </script>
+
+          <hr>
+        
+    </div>
+    <!-- Latency -->
+    <div style="width: 80em;">
+        
+      <canvas id="latencyChart"> </canvas>
+      
+      <script>
+        
+          const dataLatency = {
+            labels: {{ labels | safe }},
+            datasets: [{
+              label: 'Mean requests latency for each hour',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              fill: true,
+              borderColor: 'rgb(75, 192, 192)',
+              borderWidth: 0.75,
+              data: {{ latency | safe }},
+              lineTension: 0.15
+            }]
+          };
+        
+          const configLatency = {
+            type: 'line',
+            data: dataLatency,
+            options: {}
+          };
+          const myChart = new Chart(
+            document.getElementById('latencyChart'),
+            configLatency
+          );
+          
+        </script>
+
+        <hr>
+      
+  </div>
+  </div>
+{% endblock %}

@@ -4,6 +4,7 @@
 
     <title> {% block title %} ML DASHBOARD {% endblock %} </title>
     <div class="flex-container" style="display: flex;  justify-content: space-around; flex-wrap: wrap;";>
+      
       <!-- Continuous data graph -->
       {% for element in elements %}
         
@@ -15,7 +16,7 @@
 
         {% if type == 'continuous' %}
        
-        <div id="toto" style="width: 35em;">
+        <div style="width: 35em;">
             <div  style="text-align: center;"> {{name|safe}} </div>
             <canvas id="lineChart{{ loop.index }}"> </canvas>
             

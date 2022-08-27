@@ -3,7 +3,7 @@ from scipy.stats import gaussian_kde
 
 
 def continuous_data(data_reference, data_current, columns, config):
-    continuous = config['model']['variables']['numerical']['continuous']
+    continuous = config['model']['variables']['numerical']
     num_elements = []
     for val_ref, val_cur, col in zip(data_reference, data_current, columns):
         if col in continuous:
