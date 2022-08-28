@@ -1,27 +1,4 @@
 import os
-<<<<<<< HEAD
-import pathlib
-
-from flask import Flask, render_template
-from pillowdrift.utils.numerical import continuous_data, numerical_distribution_sampler
-from pillowdrift.utils.categorical import categorical_data, categorical_distribution_sampler
-from pillowdrift.utils.load import load_config, load_data_from_csv
-
-
-package_root_path = pathlib.Path(__file__).resolve().parent.parent
-ml_reference_datapath = os.path.join(package_root_path, "data/sample_reference.csv")
-ml_current_datapath = os.path.join(package_root_path, "data/sample_current.csv")
-system_datapath = os.path.join(package_root_path, "data/system.csv")
-config_path = os.path.join(package_root_path, "config.yaml")
-config = load_config(config_path)
-
-# system data
-system_data, system_columns = load_data_from_csv(system_datapath, config)
-# ml data
-ml_reference_data, _ = load_data_from_csv(ml_reference_datapath, config)
-ml_current_data, columns = load_data_from_csv(ml_current_datapath, config)
-
-=======
 import signal
 import argparse
 from flask import Flask
@@ -71,7 +48,6 @@ logger.info('Loading the reference dataset ...')
 reference_data, _ = load_data_from_csv(reference_datapath, config)
 logger.info('Loading the current dataset ...')
 current_data, columns = load_data_from_csv(current_datapath, config)
->>>>>>> 95d86f4df782d6cf036a1c2a55c3ad6e9f327c6a
 
 logger.info('Creating the Flask app ...')
 app = Flask(__name__)
