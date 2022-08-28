@@ -19,8 +19,8 @@ def frequency_filter(labels, values_ref, values_cur, top=5):
 
 
 def categorical_frequency(labels, val_ref, val_cur):
-    percentages_ref = []
-    percentages_cur = []
+    freq_ref = []
+    freq_cur = []
     labels_map = {}
     for i, lab in enumerate(labels):
         labels_map[lab] = i
@@ -28,14 +28,14 @@ def categorical_frequency(labels, val_ref, val_cur):
     for lab in labels:
         nb_ref = sum([1 if element == labels_map[lab] else 0 for element in val_ref ])
         nb_cur =  sum([1 if element == labels_map[lab] else 0 for element in val_cur])
-        percentages_ref.append(nb_ref)
-        percentages_cur.append(nb_cur)
-    verdict, pvalue = chisquaretest(percentages_ref, percentages_cur, threshold=0.95)
+        freq_ref.append(nb_ref)
+        freq_cur.append(nb_cur)
+    
+    val_ref = [element/sum(freq_ref) for element in freq_ref]
+    val_cur = [element/sum(freq_cur) for element in freq_cur]
+    verdict, pvalue = chisquaretest(val_ref, val_cur, threshold=0.95)
     #verdict, pvalue = "no", 0.123
-    val_ref = [element/sum(percentages_ref) for element in percentages_ref]
-    val_cur = [element/sum(percentages_cur) for element in percentages_cur]
 
-        
     return labels, val_ref, val_cur, verdict, pvalue
 
 
