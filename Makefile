@@ -1,9 +1,10 @@
 .ONESHELL:
 # Variables
-PATH_TO_CONFIG := "/Users/berangerguedou/projects/pillowdrift/config.yaml"
-PATH_TO_REFERENCE_DATASET := "/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv"
-PATH_TO_CURRENT_DATASET := "/Users/berangerguedou/projects/pillowdrift/data/sample_current.csv"
-PATH_TO_SERVICE_DATASET := "/Users/berangerguedou/projects/pillowdrift/data/system.csv"
+PROJECT_ROOT_PATH := "/home/alka/Documents"
+PATH_TO_CONFIG := "${PROJECT_ROOT_PATH}/pillowdrift/config.yaml"
+PATH_TO_REFERENCE_DATASET := "${PROJECT_ROOT_PATH}/pillowdrift/data/sample_reference.csv"
+PATH_TO_CURRENT_DATASET := "${PROJECT_ROOT_PATH}/pillowdrift/data/sample_current.csv"
+PATH_TO_SERVICE_DATASET := "${PROJECT_ROOT_PATH}/pillowdrift/data/system.csv"
 HOST_IP := "127.0.0.1"
 PORT := "5000"
 
