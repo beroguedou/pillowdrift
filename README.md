@@ -14,8 +14,8 @@ Monitor your deployed Machine Learning models and system easily.
 - [ ] Styling flake8
 
 
-## Start the dashbord
-
+## Start the dashboard
+Make this command in any terminal
 ```bash
 pillowdrift start --configpath="/Users/berangerguedou/projects/pillowdrift/config.yaml" \
                   --datapath-ref="/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv" \
@@ -23,9 +23,21 @@ pillowdrift start --configpath="/Users/berangerguedou/projects/pillowdrift/confi
                   --datapath-service="/Users/berangerguedou/projects/pillowdrift/data/system.csv" \
                   --host="127.0.0.1" --port="5000"
 ```
+Or this one in pillowdrift repository
+```bash
+make pillowstart
+```
 
-## Stop the dashbord
 
+## Stop the dashboard
+
+Make this command in any terminal
 ```bash
 pillowdrift stop --host="127.0.0.1" --port="5000"
+```
+
+Or this one in pillowdrift repository
+
+```bash
+make pillowstop
 ```
