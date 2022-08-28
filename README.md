@@ -10,3 +10,23 @@ Monitor your deployed Machine Learning models and system easily.
 - [ ] Tests are all we need !
 - [ ] Make pillowdrift start and stop commands. <--- Mah
 - [ ] A board that shows which variables drifted. <--- Ber
+- [ ] Logging
+- [ ] Typing
+- [ ] Styling flake8
+- [ ] Precommit hook
+
+## Start the dashbord
+
+```bash
+pillowdrift start --configpath="/Users/berangerguedou/projects/pillowdrift/config.yaml" \
+                  --datapath-ref="/Users/berangerguedou/projects/pillowdrift/data/sample_reference.csv" \
+                  --datapath-cur="/Users/berangerguedou/projects/pillowdrift/data/sample_current.csv" \
+                  --datapath-service="/Users/berangerguedou/projects/pillowdrift/data/system.csv" \
+                  --host="127.0.0.1" --port="5000"
+```
+
+## Stop the dashbord
+
+```bash
+pillowdrift stop --host="127.0.0.1" --port="5000"
+```

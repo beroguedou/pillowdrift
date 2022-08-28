@@ -17,7 +17,7 @@ model:
     numerical:
       - total amount
       - price
-      - probability churn 
+      - probability churn
   inference date: dates
 service:
   memory percentage: memory
@@ -25,14 +25,4 @@ service:
   requests per second: qps
   latency: latency
 general:
-  port: 5000
-  host: "0.0.0.0"
   top-category: 4
-
-
-
-
-
-
-
-
