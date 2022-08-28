@@ -9,7 +9,6 @@ def load_config(configpath):
 
 
 def load_data_from_csv(datapath, config):
-    #ordinal = config['model']['variables']['numerical']['ordinal']
 
     dataframe = pd.read_csv(datapath)
     columns = dataframe.columns.tolist()

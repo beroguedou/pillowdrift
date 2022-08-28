@@ -97,5 +97,3 @@ def pillowdrift(options=sys.argv[1:]):
         stopapp(url)
     else:
         print('Provide one action: start or stop !')
-
-    pass

@@ -4,7 +4,16 @@ import argparse
 from flask import Flask
 from pillowdrift.utils.load import load_config, load_data_from_csv
 from pillowdrift.utils.app_utils import create_app
+from logging import config, getLogger
+from pillowdrift.utils.logging_config import logging_config
 
+config.dictConfig(logging_config)
+logger = getLogger('root')
+
+#logger.info("Informative messages from your code.")
+#logger.warning("Everything works but there is something to be aware of.")
+#logger.error("There's been a mistake with the process.")
+#logger.critical("There is something terribly wrong and process may terminate.")
 
 parser = argparse.ArgumentParser(
     description=' Helps to turn on the monitoring dashboards .')
@@ -29,13 +38,18 @@ host = args.host
 port = args.port
 
 # Load config
+logger.info('Loading the configuration file ...')
 config = load_config(configpath)
 # Load system data
+logger.info('Loading the service dataset ...')
 system_data, system_columns = load_data_from_csv(service_datapath, config)
 # Load ml data
+logger.info('Loading the reference dataset ...')
 reference_data, _ = load_data_from_csv(reference_datapath, config)
+logger.info('Loading the current dataset ...')
 current_data, columns = load_data_from_csv(current_datapath, config)
 
+logger.info('Creating the Flask app ...')
 app = Flask(__name__)
 # Create the app with the arguments
 create_app(app, config, system_data,
