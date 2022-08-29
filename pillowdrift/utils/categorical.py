@@ -12,7 +12,6 @@ def chisquaretest(values_reference, values_current, threshold=0.95):
 
 
 def frequency_filter(labels, values_ref, values_cur, top):
-    top = top - 1
     labels = [x for x, _ in sorted(
         zip(labels, values_ref), key=lambda pair: pair[0])]
     values_cur = [x for x, _ in sorted(
@@ -37,7 +36,6 @@ def categorical_frequency(labels, val_ref, val_cur):
         percentages_cur.append(nb_cur)
     verdict, pvalue = chisquaretest(
         percentages_ref, percentages_cur, threshold=0.95)
-    #verdict, pvalue = "no", 0.123
     val_ref = [element/sum(percentages_ref) for element in percentages_ref]
     val_cur = [element/sum(percentages_cur) for element in percentages_cur]
 
@@ -74,10 +72,6 @@ def categorical_distribution_sampler(input_categorical_elements):
         labels = element[1]
         val_ref = element[2]
         val_cur = element[3]
-        # Compute the chisquare test, retrieve the p-value and the verdict
-
-        # Compute the KS test, retrieve the p-value and the verdict
-
         categorical_elements.append(
             (name, labels, val_ref, val_cur, 'categorical'))
     return categorical_elements
