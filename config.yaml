@@ -20,9 +20,7 @@ model:
       - probability churn
   inference date: dates
 service:
-  memory percentage: memory
-  cpu percentage: cpu
   requests per second: qps
   latency: latency
-general:
+display:
   top-category: 4

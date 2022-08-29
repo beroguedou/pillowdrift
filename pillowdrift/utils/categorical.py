@@ -11,7 +11,7 @@ def chisquaretest(values_reference, values_current, threshold=0.95):
     return verdict, round(pvalue, 5)
 
 
-def frequency_filter(labels, values_ref, values_cur, top=5):
+def frequency_filter(labels, values_ref, values_cur, top):
     top = top - 1
     labels = [x for x, _ in sorted(
         zip(labels, values_ref), key=lambda pair: pair[0])]
@@ -47,6 +47,7 @@ def categorical_frequency(labels, val_ref, val_cur):
 def categorical_data(data_reference, data_current, columns, config):
     categorical = list(config['model']['variables']['categorical'].keys())
     labels = list(config['model']['variables']['categorical'].values())
+    top_display = config['display']['top-category']
 
     categorical_elements = []
     for val_ref, val_cur, col in zip(data_reference, data_current, columns):
@@ -56,7 +57,7 @@ def categorical_data(data_reference, data_current, columns, config):
             lab, val_ref, val_cur, verdict, pvalue = categorical_frequency(
                 lab, val_ref, val_cur)
             lab, val_ref, val_cur = frequency_filter(
-                lab, val_ref, val_cur, top=5)
+                lab, val_ref, val_cur, top=top_display)
             lab = [str(element) for element in lab]
             name = 'Variable: {} <br> Data drift: {} <br> P-value: {}'.format(
                 col, verdict, pvalue)
@@ -73,7 +74,7 @@ def categorical_distribution_sampler(input_categorical_elements):
         labels = element[1]
         val_ref = element[2]
         val_cur = element[3]
-        # Compute the chisquere test, retrieve the p-value and the verdict
+        # Compute the chisquare test, retrieve the p-value and the verdict
 
         # Compute the KS test, retrieve the p-value and the verdict
 
