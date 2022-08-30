@@ -11,7 +11,6 @@ extras_requirements = {
 
 all_requirements = [
     'flask==2.2.2',
-    'scikit-learn==1.1.2',
     'tqdm==4.64.0',
     'numpy==1.23.2',
     'pandas==1.4.3',
