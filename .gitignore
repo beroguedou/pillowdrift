@@ -6,6 +6,8 @@
 # C extensions
 *.so
 
+# Logs
+**/logs
 # Notebooks
 **/*ipynb
 # Distribution / packaging
