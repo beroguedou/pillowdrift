@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 
 # Configure location for logs
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 LOGS_DIR = Path(BASE_DIR, 'logs')
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
