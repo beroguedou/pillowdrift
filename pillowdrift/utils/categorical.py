@@ -29,11 +29,13 @@ def categorical_frequency(labels, val_ref, val_cur):
         labels_map[lab] = i
 
     for lab in labels:
-        nb_ref = sum([1 if element == labels_map[lab] else 0 for element in val_ref ])
-        nb_cur =  sum([1 if element == labels_map[lab] else 0 for element in val_cur])
+        nb_ref = sum([1 if element == labels_map[lab]
+                     else 0 for element in val_ref])
+        nb_cur = sum([1 if element == labels_map[lab]
+                     else 0 for element in val_cur])
         freq_ref.append(nb_ref)
         freq_cur.append(nb_cur)
-    
+
     val_ref = [element/sum(freq_ref) for element in freq_ref]
     val_cur = [element/sum(freq_cur) for element in freq_cur]
     verdict, pvalue = chisquaretest(val_ref, val_cur, threshold=0.95)

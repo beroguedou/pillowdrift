@@ -1,4 +1,3 @@
-from importlib.metadata import entry_points
 from setuptools import setup
 
 tests_requirements = ['pytest==7.1.2']

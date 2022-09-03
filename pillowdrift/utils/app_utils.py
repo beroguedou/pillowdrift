@@ -1,6 +1,6 @@
 import os
 import signal
-from flask import Flask, render_template, request
+from flask import render_template
 from pillowdrift.utils.numerical import continuous_data, numerical_distribution_sampler
 from pillowdrift.utils.categorical import categorical_data, categorical_distribution_sampler
 
@@ -8,12 +8,15 @@ from pillowdrift.utils.categorical import categorical_data, categorical_distribu
 def initialize(config, system_data, system_columns, reference_data, current_data, columns):
     elements = []
     # Numerical elements
-    numerical_elements = continuous_data(reference_data, current_data, columns, config)
+    numerical_elements = continuous_data(
+        reference_data, current_data, columns, config)
     numerical_elements = numerical_distribution_sampler(numerical_elements)
     elements.extend(numerical_elements)
     # Categorical elements
-    categorical_elements = categorical_data(reference_data, current_data, columns, config)
-    categorical_elements = categorical_distribution_sampler(categorical_elements)
+    categorical_elements = categorical_data(
+        reference_data, current_data, columns, config)
+    categorical_elements = categorical_distribution_sampler(
+        categorical_elements)
     elements.extend(categorical_elements)
     # Service elements
     system_data_map = {}
@@ -32,7 +35,8 @@ def initialize(config, system_data, system_columns, reference_data, current_data
 def create_app(app, config, system_data, system_columns, reference_data, current_data, columns):
 
     # Initialization
-    elements, dates, qps, latency = initialize(config, system_data, system_columns, reference_data, current_data, columns)
+    elements, dates, qps, latency = initialize(
+        config, system_data, system_columns, reference_data, current_data, columns)
 
     @app.route('/ml', methods=['GET'])
     @app.route('/dashboard', methods=['GET'])
