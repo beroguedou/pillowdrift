@@ -2,6 +2,11 @@ import os
 import sys
 import requests
 from pathlib import Path
+from logging import config, getLogger
+from pillowdrift.utils.logging_config import logging_config
+
+config.dictConfig(logging_config)
+logger = getLogger('root')
 
 absolute_path_app = os.path.join(Path(__file__).parent.parent, 'app.py')
 
@@ -29,25 +34,25 @@ def pillowdrift(options=sys.argv[1:]):
                 options_dict[element] = value
         options_count = 0
         if '--configpath' not in options_dict.keys():
-            print('Enter the config path !')
-            # sys.exit(1)
+            logger.critical('Enter the config path !')
+            sys.exit(1)
         else:
             options_count += 1
         if '--datapath-ref' not in options_dict.keys():
-            print('Enter the reference data path !')
-            # sys.exit(1)
+            logger.critical('Enter the reference data path !')
+            sys.exit(1)
         else:
             options_count += 1
 
         if '--datapath-cur' not in options_dict.keys():
-            print('Enter the current data path !')
-            # sys.exit(1)
+            logger.critical('Enter the current data path !')
+            sys.exit(1)
         else:
             options_count += 1
 
         if '--datapath-service' not in options_dict.keys():
-            print('Enter the service data path !')
-            # sys.exit(1)
+            logger.critical('Enter the service data path !')
+            sys.exit(1)
         else:
             options_count += 1
         if '--host' not in options_dict.keys():
@@ -68,7 +73,7 @@ def pillowdrift(options=sys.argv[1:]):
             port = options_dict['--port']
 
             # Start flask server
-            print("Lancement de l'application ...")
+            logger.info('Launching the application ...')
             startapp(configpath,
                      datapath_ref,
                      datapath_cur,
@@ -93,7 +98,9 @@ def pillowdrift(options=sys.argv[1:]):
             port = int(options_dict['--port'])
 
         # Stop flask server
+        logger.info('Shutting down the application ...')
         url = 'http://{}:{}/shutdown'.format(host, port)
         stopapp(url)
     else:
-        print('Provide one action: start or stop !')
+        logger.info('Provide one action: start or stop !')
+        sys.exit(1)

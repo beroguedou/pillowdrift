@@ -22,10 +22,10 @@ logging_config = {
         'console': {
             'class': 'logging.StreamHandler',
             'stream': sys.stdout,
-            'formatter': 'minimal',
+            'formatter': 'detailed',
             'level': logging.DEBUG,
         },
-        'info': {
+        'above-info': {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': Path(LOGS_DIR, 'above-info.log'),
             'maxBytes': 10485760,  # 1 MB
@@ -36,7 +36,7 @@ logging_config = {
     },
     'loggers': {
         'root': {
-            'handlers': ['console', 'info'],
+            'handlers': ['console', 'above-info'],
             'level': logging.INFO,
             'propagate': True,
         },
