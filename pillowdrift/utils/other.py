@@ -20,7 +20,7 @@ def startapp(configpath, datapath_ref, datapath_cur, datapath_service, host, por
 def stopapp(url):
     r = requests.get(url)
     if r.status_code:
-        print('The server is off !')
+        logger.info('The server is off !')
 
 
 def pillowdrift(options=sys.argv[1:]):
